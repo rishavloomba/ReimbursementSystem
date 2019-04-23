@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+ 
+ {% block title %}Reimbursement{% endblock %}
+
+ {% block stylesheets %}
+  <link rel="stylesheet" href="/assets/reimbursement.css" >
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
+       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
+       crossorigin="anonymous">
+ {% endblock %}
+  {% block jscript %} 
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+ {% endblock %}
+
+
+ {% block body %}
+
+ <!-- Flash Images -->
+{% for message in app.flashes('ins') %}
+    <div class="alert alert-danger" role="alert">
+          {{ message }}
+     </div>
+ {% endfor %}
+ 
+{% for message in app.flashes('lg') %}
+    <div class="alert alert-success" role="alert">
+          {{ message }}
+     </div>
+ {% endfor %}
+ 
+  <!-- header -->
+ <header>
+    <!-- Navbar -->
+    {{ include('inc/navbar.html.twig') }}
+</header> 
+
+
+
+<div class="container" >
+
+ <div class="jumbotron">
+    <div class="page-header">
+      <legend><h3>Add your Expenses </h3></legend>
+      
+    </div>
+
+   <a id="publish" name="status" class="btn btn-xs btn-info" 
+         href="/reimbursement/new"> Add Expense </a>
+
+ </div>
+
+
+
+
+<!-- ============
+
+Outer for loop
+
+================== -->
+{% if result %}
+{% set i = 0 %}
+{% for data in result %}
+
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div  class="panel-heading clearfix"  >
+     <div style="display:flex">
+       <div>
+        <h4 class="panel-title pull-left">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="btn btn-sm btn-success">
+        Form ID {{ key[i] }}</a> <br>
+        
+        </h4>
+      </div>
+       <div>
+           {% if status[key[i]] == "pending" %}
+              <p style="color: #15151c;"> <i class="fas fa-clock"></i></p>
+          {% elseif status[key[i]] == "rejected" %}
+                 <p style="color: red;"> <i class="fas fa-times-circle"></i></p>
+
+           {% else %}
+               <p style="color : green"> <i class="fas fa-check-circle"></i> </p>      
+           {% endif %}
+       </div>
+     </div>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <table cellpadding="0" cellspacing="0" border="0" class="table display" id="example" width="100%">
+          <thead>
+              <tr>
+                <th>Travle Expense</th>
+                <th>Telephone Expense</th>
+                <th>Bussiness Meal</th>
+                <th>Hotel Stay</th>
+                <th>Description</th>
+                <th>Expense Date</th>
+                <th>Total</th>
+             </tr>
+          </thead>
+           <tbody>
+           {% for d in data %}
+             {% for res in d %}
+               <tr>
+                    <td> {{ res.travel_exp }} </td>
+                    <td> {{ res.telephone_exp }} </td>
+                    <td> {{ res.business_meal}} </td>
+                    <td> {{ res.hotel_stay }}</td>
+                    <td> {{ res.description }}</td>
+                    <td> {{ res.expense_date|date("Y/m/d") }} </td>
+                    <td> {{ res.total_exp }} </td>
+                    
+                    
+                  
+                  </tr>
+                 </form>  
+                
+            {% endfor %}
+           {% endfor %} 
+       </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+
+ </div> 
+<!--- End -->
+ {% set i = i +1 %}
+{% endfor %}
+{% else %}
+<h3>NO DATA</h3>
+{% endif %}
+{% endblock %}

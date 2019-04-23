@@ -1,0 +1,90 @@
+<html>
+ <head>
+  <title> Expenses</title>
+  <link rel="icon" href="http://blog.quikr.com/wp-content/uploads/2015/09/Favicon.ico" >
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+   integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
+   crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </head>
+ <body>
+ 
+  
+
+
+  <div class="container jumbotron">
+  <a style="color: white; font-size: 2em;" class="btn btn-sm btn-primary" href="/reimbursement"><i class="fas fa-arrow-left"></i></a>
+   <h2 align="left">NON CTC-Expense Reimbursement</h2>
+  
+   <h4 align="left">Add your tasks</h4>
+   <br />
+   <form method="POST" id="insert_form" enctype="multipart/form-data" encoding='multipart/form-data' action="/reimbursement/addexpense">
+    <div class="table-repsonsive">
+     <span id="error"></span>
+     <table class="table table-bordered" id="item_table">
+      <tr>
+        <th>Enter Expense Date</th>
+        <th>Travel Expense</th>
+        <th>Telephone</th>
+        <th>Hotel Stay</th>
+        <th>Buisness Meal</th>
+        <th>Buisness Justification</th>
+        <th>Upload Document</th>
+        <th></th>
+      </tr>
+   <tr>
+        <td><input type="date" name="date[]" class="form-control expense_date" /></td>
+        <td><input type="text" value="0" name="travel[]" class="form-control travel_exp" /></td>
+        <td><input type="text" value="0" name="telephone[]" class="form-control telphone_exp" /></td>
+        <td><input type="text" value="0" name="hotel[]" class="form-control hotel_exp" /></td>
+        <td><input type="text" value="0" name="buisness[]" class="form-control meal_exp" /></td>
+        <td><input type="text" name="disc[]" class="form-control disc" /></td>
+        <td><input type="file" name="files[]" class="form-control files" /></td>
+
+        <td><button type="button" name="add" class="btn btn-success btn-sm add"><span class="glyphicon glyphicon-plus"></span></button></td>
+
+  </tr>
+ </table>
+
+
+
+
+     <div align="center">
+      <input type="submit"  name="submit" class="btn btn-warning" value="Final Submit!!" />
+     </div>
+    </div>
+   </form>
+  </div>
+ </body>
+</html>
+
+<script>
+$(document).ready(function(){
+ 
+ $(document).on('click', '.add', function(){
+  var html = '';
+  html += '<tr>';
+  html += '<td><input type="date" name="date[]" class="form-control expense_date" /></td>';
+  html += '<td><input type="text" value="0" name="travel[]" class="form-control travel_exp" /></td>';
+  html += '<td><input type="text" value="0" name="telephone[]" class="form-control telphone_exp" /></td>';
+  html += '<td><input type="text" value="0" name="hotel[]" class="form-control hotel_exp" /></td>';
+  html += '<td><input type="text" value="0" name="buisness[]" class="form-control meal_exp" /></td>';
+  html += '<td><input type="text" name="disc[]" class="form-control disc" /></td>';
+  html += '<td><input type="file" name="files[]" class="form-control files" /></td>';
+
+  html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
+     
+     
+  $('#item_table').append(html);
+ });
+ 
+ $(document).on('click', '.remove', function(){
+  $(this).closest('tr').remove();
+ });
+ 
+ 
+ 
+});
+</script>

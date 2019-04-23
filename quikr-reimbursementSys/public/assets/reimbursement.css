@@ -1,0 +1,36 @@
+#logo {
+    width: 2px;
+    height: 2px;
+    opacity: 0.05 ;
+    margin-left: 30%; 
+}
+
+.my-nav {
+    
+    background-color: #16149b;/* #0d3c87;*/
+	border-bottom: #5cce27 4px solid;
+    
+}
+
+.navbar .navbar-brand{
+	color: white;
+}
+
+.navbar li a {
+	color: white;
+}
+
+.navbar-toggler button span {
+    color: white;
+
+}
+
+i {
+    font-size: 2em;
+}
+
+#heading {
+
+    margin-left: 44%;
+    padding-top: 3%;
+}

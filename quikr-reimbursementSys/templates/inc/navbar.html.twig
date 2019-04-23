@@ -1,0 +1,48 @@
+  
+  
+  <!-- header -->
+ <header>
+<nav class="my-nav navbar navbar-expand-lg">
+  <div class="container">
+      <a class="navbar-brand" href="/reimbursement">Quikr Taskrrr</a>
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/reimbursement">Reimbursement<span class="sr-only">(current)</span></a>
+            </li>
+              {% if emp %}
+                  {% if emp.designation == "manager" %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="/manager" tabindex="-1" aria-disabled="true">Manager View</a>
+                  </li>
+                  
+                {% endif %}
+                  {% if emp.department == "Finance and Accounts" %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/finance" tabindex="-1" aria-disabled="true">Finance View</a>
+                    </li>   
+                    <li class="nav-item">
+                        <a class="nav-link" href="/finance/history" tabindex="-1" aria-disabled="true">Payment History</a>
+                    </li>                
+                  {% endif %}
+             {% endif %}
+             </ul>
+           <ul class="navbar-nav">
+             <li>
+               <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">{{emp.name}}</a>
+             </li>
+       
+             <li>
+                <a class="nav-link" href="/logouts" tabindex="-1" aria-disabled="true">Logout</a>
+             </li> 
+           </ul>
+
+          
+        </div>
+  </div>       
+</nav>
+</header> 

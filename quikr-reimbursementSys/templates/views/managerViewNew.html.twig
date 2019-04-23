@@ -1,0 +1,175 @@
+
+{% extends 'base.html.twig' %}
+ 
+ {% block title %}Reimbursement{% endblock %}
+
+ {% block stylesheets %}
+  <link rel="stylesheet" href="/assets/reimbursement.css" >
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
+       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
+       crossorigin="anonymous">
+ {% endblock %}
+
+ {% block body %}
+
+ 
+
+  <!-- header -->
+ <header>
+    <!-- Navbar -->
+    {{ include('inc/navbar.html.twig') }}
+</header> 
+
+<div class="container">
+
+  <div class="jumbotron">
+    <div class="page-header">
+      <legend><h3>Pending Expense Requests</h3></legend>
+      
+    </div>
+ </div>
+<!--  Start -->
+
+<div style="margin-left : 60%; display:flex" >
+
+   <form class="form-inline my-2 my-lg-0" style="padding-bottom : 10px;" action="/manager/filter" method="POST" >
+     
+             <select id="culscore" name="tofetch" class="form-control" style="margin : 7px;">
+                <option value="" selected disabled hidden>Select</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+                <option value="pending">Pending</option>
+
+                
+              </select>
+              <select id="culscore" name="month" class="form-control" style="margin : 7px;">
+                <option value="" selected disabled>Month</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5 </option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
+
+              <select id="culscore" name="year" class="form-control" style="margin : 7px;">
+                <option value="" selected disabled>Year</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+              </select>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
+   </form>
+</div>
+
+{% for key, value in result %}  
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading clearfix">
+      <h4 class="panel-title pull-left">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" 
+                class="btn btn-lg btn-success">
+        EmpId  {{ key }}</a> 
+      </h4>
+    </div>
+
+    <!-- Form id loop -->
+    {% for k,v in value %} 
+    
+      <div id="collapse1" class="panel-collapse collapse in">
+        <div class="panel-body">
+        <div class>
+        {% if v.status == "pending" %}
+          <a   name="status" class="btn btn-xs btn-info" 
+               href="/manager/approve/{{ k }}"> Approve</a>
+          <a class="btn btn-xs btn-warning" href="/manager/{{k}}/reject" >Reject</a>
+          {% elseif v.status == "rejected" %}
+                 <p style="color: red;"> <i class="fas fa-times-circle"></i></p>
+
+           {% else %}
+               <p style="color : green"> <i class="fas fa-check-circle"></i> </p>      
+          {% endif %}
+        </div>
+          
+          
+       <table cellpadding="0" cellspacing="0" border="0" class="table display" id="example" width="100%">
+          <thead>
+              <tr>
+                <th>Form  ID</th>
+                <th>Travle Expense</th>
+                <th>Telephone Expense</th>
+                <th>Bussiness Meal</th>
+                <th>Hotel Stay</th>
+                <th>Description</th>
+                <th>Total</th>
+                <th>Document Proofs</th>
+    
+             </tr>
+          </thead>
+            <tbody>
+             {% for v1 in v.tasks %}
+               <tr>
+                    <td> {{k }}  </td>
+                    <td> {{ v1.travel_exp }} </td>
+                    <td> {{ v1.telephone_exp }} </td>
+                    <td> {{ v1.business_meal}} </td>
+                    <td> {{ v1.hotel_stay }}</td>
+                    <td> {{ v1.description }}</td>
+                    <td> {{ v1.total_exp}}</td>
+                    <td>
+                      <button type="button" 
+                            class="btn btn-info" 
+                            data-toggle="modal" data-target="#myModal{{k}}">
+                                View image
+                        </button>
+                      </td>  
+                  </tr>
+
+
+                  <!-- The Modal -->
+                    <div id="myModal{{k}}"class="modal fade" tabindex="-1" role="dialog">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <img src="{{v1.image_url }}" class="img-responsive">
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+            
+       </tbody> 
+      </table>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+ {% endfor %}
+
+{% endblock %}
+
+
+
+
+
+
+{% block javascripts %}
+  <footer class="page-footer font-small blue pt-4 mt-4">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 
+  <script type="text/javascript" charset="utf-8">
+ 
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+  </script>
+  </footer>
+{% endblock %}

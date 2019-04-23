@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+ 
+ {% block title %}Detail View{% endblock %}
+
+ {% block stylesheets %}
+  <link rel="stylesheet" href="/assets/reimbursement.css" >
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
+       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
+       crossorigin="anonymous">
+ {% endblock %}
+  {% block jscript %} 
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+ {% endblock %}
+
+
+ {% block body %}
+
+ <!-- Flash Images -->
+{% for message in app.flashes('ins') %}
+    <div class="alert alert-danger" role="alert">
+          {{ message }}
+     </div>
+ {% endfor %}
+ 
+
+  <!-- header -->
+
+<header>
+    <!-- Navbar -->
+    {{ include('inc/navbar.html.twig') }}
+</header> 
+
+
+
+<div class="container" >
+
+  <a style="color: black; font-size: em; margin-top:10px"  href="/finance"><i class="fas fa-arrow-left"></i></a>
+
+  <div id="heading" >
+       <h3>Detail View</h3><br><br>
+   </div>
+   
+
+
+
+
+<!-- ============
+
+Outer for loop
+
+================== -->
+
+
+{% if result %}
+
+{% set i=0 %}
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    
+      <div class="panel-body">
+        <table cellpadding="0" cellspacing="0" border="0" class="table display" id="example" width="100%">
+          <thead>
+          
+              <tr>
+
+               
+                <th>Travle Expense</th>
+                <th>Telephone Expense</th>
+                <th>Bussiness Meal</th>
+                <th>Hotel Stay</th>
+                <th>Description</th>
+                <th>Expense Date</th>
+                <th>Total</th>
+                <th>Document Proof</th>
+             </tr>
+          </thead>
+           <tbody>
+                {% for data in result %}
+
+               <tr>
+                  
+                    
+                    <td> {{ result[i].travel_exp }} </td>
+                    <td> {{ result[i].telephone_exp }} </td>
+                     <td> {{ result[i].business_meal}} </td>
+                    <td> {{ result[i].hotel_stay }}</td>
+                    <td> {{ result[i].description }}</td> 
+                     <td> {{ result[i].expense_date|date("Y/m/d")}} </td>
+                     <td> {{ result[i].total_exp}} </td>
+
+                   <td>
+                    {# <a href='{{ result[i].image_url }}'> #}
+                        <button type="button" 
+                          class="btn btn-primary" 
+                          data-toggle="modal" data-target="#myModal{{i}}">
+                               View image
+                         </button>
+
+                    {# </a> #}
+                   <td>
+                     
+                    
+                  
+                  </tr>
+           
+
+
+<!-- The Modal -->
+<div id="myModal{{i}}"class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body">
+            <img src="{{ result[i].image_url }}" class="img-responsive">
+        </div>
+    </div>
+  </div>
+</div>
+    {% set i=i+1 %}
+{% endfor %}
+          
+       </tbody>
+      </table>
+      </div>
+  </div>
+
+ </div> 
+<!--- End -->
+
+
+{% else %}
+ <p> No Data </p>
+{% endif %}
+
+
+{% endblock %}

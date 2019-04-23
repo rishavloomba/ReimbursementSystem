@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="./assets/login.css">
+{% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('msg') %}
+    <div class="alert alert-danger" role="alert">
+          {{ message }}
+     </div>
+ {% endfor %}
+ 
+ 
+
+<!-- Container -->
+<div class="container">
+   <div class="jumbotron"> 
+     <div class="form-design">
+        <img src="https://teja10.kuikr.com/public/images/dist/PNG/Quikr-Logo.png" alt="login"> 
+          
+         
+          <a class="btn btn-lg btn-success btn-block" href="{{link}}">Login!</a>
+          <!-- <p>  if you don't have account then register <a href="signin.html">here</a></p> -->
+        </div>
+    </div>
+</div> 
+
+{% endblock %}

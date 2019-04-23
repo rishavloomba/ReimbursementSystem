@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+ 
+ {% block title %}Finance{% endblock %}
+
+ {% block stylesheets %}
+  <link rel="stylesheet" href="/assets/reimbursement.css" >
+ {% endblock %}
+
+ {% block body %}
+
+ 
+
+  <!-- header -->
+ <header>
+    <!-- Navbar -->
+    {{ include('inc/navbar.html.twig') }}
+</header> 
+
+<!-- Section -->
+<section class="container">
+
+<div class="jumbotron">
+  
+   <div style="display : flex">
+    <div class="page-header">
+       <h3>Pending Payments</h3>
+       <hr>
+   </div>
+
+   <h4 class="panel-title pull-right" style="margin-left:70%">
+            <a  href="/finance/paidview" class="btn btn-sm btn-info">
+            PAID
+            </a>
+          </h4>
+          </div>
+   <!--  Start -->
+{% if result %}
+    {% for key,value in result %}
+
+
+    
+        <div class="panel-heading clearfix">
+          
+          
+         
+         
+          <h4 class="panel-title pull-left">
+                     <b>  MANAGER ID {{ key }}</b>
+
+          </h4>
+         
+           {% for k,v in value %}
+           
+       
+           
+            <div class="panel-body">
+            <table cellpadding="0" cellspacing="0"  border="0" class="table display" id="example" width="100%">
+            <thead>
+                  <tr>
+                  <th>Emp Id</th>
+                  <th>FORM ID</th>
+                    <th>Total Exp</th>
+                    <th>Approved Date</th>
+                    <th>Action</th>
+                    <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                        {% for k1,v1 in v %}
+
+                    <tr>
+                    <td> {{ k }}</td>
+                        <td> {{ v1.formid }}  </td>
+                        <td> {{ v1.total_exp }} </td>
+                        <td> {{ v1.approved_date|date("Y/m/d") }} </td>
+                      <td>  
+                        <a id="pay" name="status" class="btn btn-xs btn-warning" href="/finance/payment/{{ v1.formid }}"> PAY</a>
+                        </td>
+                        <td> <a id="view" name="details" href="/finance/view/{{ v1.formid }}" class="btn btn-xs btn-info"> VIEW</a></td>
+                        <!-- Approve or Reject -->
+                    </tr>
+            {% endfor %}
+           {% endfor %}
+        </tbody>
+        </table>
+        </div>
+        </div>
+      
+    <!--- End -->
+
+    {% endfor %}
+ {% endif %}   
+{% endblock %}
+
+
+
+{% block javascripts %}
+  <footer class="page-footer font-small blue pt-4 mt-4">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf-8">
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+  </script>
+  </footer>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+ 
+ {% block title %}Finance{% endblock %}
+
+ {% block stylesheets %}
+  <link rel="stylesheet" href="/assets/reimbursement.css" >
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+   integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
+   crossorigin="anonymous">
+ {% endblock %}
+
+ {% block body %}
+
+ 
+
+  <!-- header -->
+ <header>
+    <!-- Navbar -->
+    {{ include('inc/navbar.html.twig') }}
+</header> 
+
+<!-- Section -->
+<section class="container">
+
+<div class="jumbotron">
+    <a style="color: black; font-size: em; margin-bottom:50px"  href="/finance"><i class="fas fa-arrow-left"></i></a><br><br><br>
+
+    <div class="page-header">
+       <h3>SUCCESSFUL PAYMENTS</h3>
+   </div>
+
+   
+   <!--  Start -->
+{% if result %}
+{% set i=0 %}
+
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+       
+          <div class="panel-body">
+            <table cellpadding="0" cellspacing="0" border="0" class="table display" id="example" width="100%">
+              <thead>
+                  <tr>
+                  <th>Manager Id</th>
+                  <th>Emp Id</th>
+                    <th>Form id</th>
+                    <th>Total</th>
+                    <th>Payment Date</th>
+                    <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for data in result %}
+                    <tr>
+                        <td> {{ result[i].managerid }}  </td>
+                        <td> {{ result[i].empid }} </td>
+                        <td> {{ result[i].formid }} </td>
+                        <td> {{ result[i].total_exp }} </td>
+                        <td> {{ result[i].payment_date | date("Y/m/d") }} </td>
+
+                        <td> <a id="view" name="details" href="/finance/view/{{ result[i].formid }}" class="btn btn-xs btn-info"> VIEW</a></td>
+                        <!-- Approve or Reject -->
+                    </tr>
+                    {% set i=i+1 %}
+            {% endfor %}
+          </tbody>
+          </table>
+          </div>
+      </div>
+    <!--- End -->
+
+{% else %}
+<h3><b>NO DATA</b><h3>
+ {% endif %}   
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+  <footer class="page-footer font-small blue pt-4 mt-4">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf-8">
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+  </script>
+  </footer>
+{% endblock %}
